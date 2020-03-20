@@ -1,19 +1,28 @@
 ## 简介
-react + antd + redux 仿微信网页版，纯前端项目，未对接后端，数据纯前端模拟
+react + antd + redu  仿微信网页版，纯前端项目，未对接后端，数据纯前端模拟
 
 ## 技术选型
 
 - react
-- redux
-- antd （3.x）
+- redu 
+- antd （3. ）
+
+## 安装 
+
+```shell
+git clone https://github.com/MarichMarck/react-im.git
+cd react-im
+yarn install  
+yarn start
+```
 
 ## 功能
 
--[x] 会话列表  
--[x] 会话窗口  
--[x] 通讯录  
--[x] 设置  
--[x] 全屏切换  
+-[ ] 会话列表  
+-[ ] 会话窗口  
+-[ ] 通讯录  
+-[ ] 设置  
+-[ ] 全屏切换  
 
 ## 预览
 
