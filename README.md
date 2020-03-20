@@ -18,13 +18,13 @@ react + antd + redux 仿微信网页版，纯前端项目，未对接后端，�
 ## 预览
 
 **首页**
-![首页](https://github.com/MarichMarck/react-im/raw/master/preview/home.png)
+![首页](https://github.com/MarichMarck/react-im/blob/master/preview/home.png)
 
 **消息**
-![消息](https://github.com/MarichMarck/react-im/raw/master/preview/message.png)
+![消息](https://github.com/MarichMarck/react-im/blob/master/preview/message.png)
 
 **通讯录**
-![通讯录](https://github.com/MarichMarck/react-im/raw/master/preview/maillist.png)
+![通讯录](https://github.com/MarichMarck/react-im/blob/master/preview/maillist.png)
 
 **设置**
-![设置](https://github.com/MarichMarck/react-im/raw/master/preview/about.png)
+![设置](https://github.com/MarichMarck/react-im/blob/master/preview/about.png)
