@@ -1,10 +1,10 @@
 ## 简介
-react + antd + redu  仿微信网页版，纯前端项目，未对接后端，数据纯前端模拟
+react + antd + redux  仿微信网页版，纯前端项目，未对接后端，数据纯前端模拟
 
 ## 技术选型
 
 - react
-- redu 
+- redux 
 - antd （3.x）
 
 ## 安装 
