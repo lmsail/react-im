@@ -33,14 +33,18 @@ yarn start
 
 ## 预览
 
-**首页**
-![首页](https://github.com/lmsail/react-im/blob/master/preview/home.png)
+![预览1](https://github.com/lmsail/react-im/blob/master/preview/1.png)
 
-**消息**
-![消息](https://github.com/lmsail/react-im/blob/master/preview/message.png)
+![预览2](https://github.com/lmsail/react-im/blob/master/preview/2.png)
 
-**通讯录**
-![通讯录](https://github.com/lmsail/react-im/blob/master/preview/maillist.png)
+![预览3](https://github.com/lmsail/react-im/blob/master/preview/3.png)
 
-**设置**
-![设置](https://github.com/lmsail/react-im/blob/master/preview/about.png)
+![预览4](https://github.com/lmsail/react-im/blob/master/preview/4.png)
+
+![预览5](https://github.com/lmsail/react-im/blob/master/preview/5.png)
+
+![预览6](https://github.com/lmsail/react-im/blob/master/preview/6.png)
+
+![预览7](https://github.com/lmsail/react-im/blob/master/preview/7.png)
+
+![预览8](https://github.com/lmsail/react-im/blob/master/preview/8.png)

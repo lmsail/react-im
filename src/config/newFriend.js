@@ -2,9 +2,9 @@ export const newFriend = [
     {
         "area":"",
         "autograph":"",
-        "avatar":"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1582778785114&di=4bf0a9cbe00cd200465af9fe46b3091e&imgtype=0&src=http%3A%2F%2Fwww.56ec.org.cn%2Fd%2Ffile%2Fnews%2Frwgd%2F2017-05-15%2Fa26c40ec7d83c66d78ad6f791952a01b.jpg",
+        "avatar":"https://dss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2387536093,3967115426&fm=26&gp=0.jpg",
         "id":7,
-        "nick_remark":"小马",
+        "nick_remark":"马爸爸",
         "nickname":"马云",
         "phone":0,
         "remark":"兄弟，有单生意介绍给你",
