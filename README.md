@@ -2,6 +2,10 @@
 React + Antd3.x + Redux 网页版点对点IM，纯前端项目，数据为模拟数据，可以对接任意后端语言，虽然成熟项目很多，但是也不失为多一种选择（其实是当初为了学习React做的一个小DEMO～～）
 给喜欢折腾的朋友多一种选择，当然作为一名后端仔开发的前端项目，可能对刚学习react的用户比较友好～
 
+## 服务端
+
+> 配套的 react-im server 端，基于 nestjs 框架，完善的 Api 文档，代码示例子；  [react-im server api](https://github.com/lmsail/react-im-server)
+
 ## 安装 
 
 ```shell
