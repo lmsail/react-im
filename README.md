@@ -4,7 +4,7 @@ React + Antd3.x + Redux 网页版点对点IM，纯前端项目，数据为模拟
 
 ## 服务端
 
-> 配套的 react-im server 端，基于 nestjs 框架，完善的 Api 文档，代码示例子；  [react-im server api](https://github.com/lmsail/react-im-server)
+> 配套的 react-im server 端，基于 nestjs 框架，完善的 Api 文档，代码示例子；  [react-im server api | dev 分支](https://github.com/lmsail/react-im-server/tree/dev)
 
 ## 安装 
 
