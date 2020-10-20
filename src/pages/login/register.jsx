@@ -45,7 +45,7 @@ class Register extends Component {
                             />,
                         )}
                     </Form.Item>
-                    <Form.Item style={{ marginBottom: 5 }}><Checkbox defaultChecked>同意<a href="#">《聊天室规章制度》</a></Checkbox></Form.Item>
+                    <Form.Item style={{ marginBottom: 5 }}><Checkbox defaultChecked>同意<a href="http://www.lmsail.com">《聊天室规章制度》</a></Checkbox></Form.Item>
                     <Form.Item>
                         <Button type="primary" size="large" htmlType="submit" block>注册</Button>
                         <Button type="default" size="large" block onClick={this.login} style={{ marginTop: 15 }}>已有账号？登录</Button>
