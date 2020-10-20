@@ -1,12 +1,13 @@
 /**
  * 路由组件
  */
-import ChatContainer from '../containers/chat'
-import Setting from '../containers/setting'
-import MailList from '../containers/maillist'
+import ChatContainer from '../pages/chat'
+import Setting from '../pages/setting'
+import MailList from '../pages/maillist'
 import Welcome from '../components/welcome'
-import ChatMessage from '../containers/chat/message'
-import Login from '../containers/login/login'
+import ChatMessage from '../pages/chat/message'
+import Login from '../pages/login/login'
+import Register from '../pages/login/register'
 
 const Routers = [
     {
@@ -48,6 +49,10 @@ const Routers = [
     {
         path: '/login',
         components: Login
+    },
+    {
+        path: '/register',
+        components: Register
     }
 ]
 

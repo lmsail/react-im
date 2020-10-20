@@ -16,11 +16,7 @@ class LeftNav extends Component {
     }
 
     componentDidMount() {
-        let screenType = Cookies.get('screenType')
-        if(screenType) {
-            screenType = screenType === 'fullscreen' ? 'fullscreen-exit' : 'fullscreen'
-            this.setState({ screenType: screenType })
-        }
+        this.resetFullScreen()
     }
 
     render() {
@@ -68,10 +64,19 @@ class LeftNav extends Component {
         this.props.history.push({pathname: '/setting'})
     }
 
+    resetFullScreen = () => {
+        let screenType = Cookies.get('screenType')
+        if(screenType) {
+            screenType = screenType === 'fullscreen' ? 'fullscreen-exit' : 'fullscreen'
+            this.setState({ screenType })
+        }
+    }
+
     setFullScreen = () => {
         const { screenType } = this.state
         Cookies.set('screenType', screenType)
-        window.location.reload() // 还是这样省事啊  哈哈
+        this.resetFullScreen()
+        this.props.parent.setState({ screenType })
     }
 }
 

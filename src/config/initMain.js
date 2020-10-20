@@ -5,7 +5,7 @@
 export const user = {
     "area":"北京-北京",
     "autograph":"不是每个人都能成为自己想要的样子，但每个人，都可以努力成为自己想要的样子.",
-    "avatar":"https://dss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=218375221,1552855610&fm=111&gp=0.jpg",
+    "avatar":"http://www.lmsail.com/storage/9d770a4b695cc49ed23525bebca15790.jpeg",
     "id":1,
     "introduction":"90后 | Mr.bo | PHPER工程师",
     "lockstate":0,

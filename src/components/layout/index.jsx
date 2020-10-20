@@ -8,10 +8,10 @@ import PropTypes from 'prop-types'
 import {Layout} from 'antd'
 
 import Welcome from '../welcome'
-import UserInfo from '../../containers/maillist/friend/profile'
-import ChatMessage from '../../containers/chat/message'
-import NewFriend from '../../containers/maillist/friend/newfriend'
-import AddFriend from '../../containers/maillist/friend/addfriend'
+import UserInfo from '../../pages/maillist/friend/profile'
+import ChatMessage from '../../pages/chat/message'
+import NewFriend from '../../pages/maillist/friend/newfriend'
+import AddFriend from '../../pages/maillist/friend/addfriend'
 
 const {Sider} = Layout
 

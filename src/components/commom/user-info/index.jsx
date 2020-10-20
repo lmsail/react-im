@@ -1,8 +1,8 @@
 import React, {Component} from 'react'
-import {connect} from 'react-redux'
-import {withRouter} from 'react-router-dom'
-import {Avatar, Row, Col, Button, Modal, message as AM, Icon, Upload} from 'antd'
-import {logout} from '../../../redux/actions'
+import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
+import { Avatar, Row, Col, Button, Modal, message as AM, Icon, Upload } from 'antd'
+import { logout } from '../../../redux/actions'
 
 import './user-info.less'
 
@@ -37,12 +37,7 @@ class UserInfo extends Component {
 
     createModal = () => {
         const {visible} = this.state
-        return <Modal
-            visible={visible}
-            title="上传头像"
-            onCancel={() => this.changeModalStatus(false)}
-            footer={false}
-        >
+        return <Modal visible={visible} title="上传头像" footer={false}onCancel={() => this.changeModalStatus(false)}>
             <Upload.Dragger name="file" multiple={false}>
                 <p className="ant-upload-drag-icon">
                     <Icon type="cloud-upload" />
@@ -53,7 +48,7 @@ class UserInfo extends Component {
     }
 
     changeModalStatus = visible => {
-        this.setState({visible})
+        this.setState({ visible })
     }
 
     getItemList = () => {

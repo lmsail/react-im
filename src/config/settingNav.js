@@ -1,11 +1,11 @@
 /**
  * 设置页面导航路由
  */
-import User from '../containers/setting/user'
-import MessageSetting from '../containers/setting/message'
-import PageSetting from '../containers/setting/page'
-import LoginSetting from '../containers/setting/login'
-import About from '../containers/setting/about'
+import User from '../pages/setting/user'
+import MessageSetting from '../pages/setting/message'
+import PageSetting from '../pages/setting/page'
+import LoginSetting from '../pages/setting/login'
+import About from '../pages/setting/about'
 
 const SettingNavRouter = [
     {
