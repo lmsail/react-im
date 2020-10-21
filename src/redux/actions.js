@@ -2,7 +2,6 @@
  * 对应 reducers 中的 action 同步/异步请求
  */
 import Cookies from 'js-cookie'
-import {websocket} from '../utils/websocket'
 import {
     initChatData, receiveChatMsg, sendChatMsg, showRightType, showFriendInfo, authSuccess,
     errMsg, userInfo,logOut, modifyUserContacts, getNewFriends, getMailList
@@ -45,7 +44,7 @@ export const initUserInfo = token => {
         const result = response.data
         if (result.code === 200) {
             dispatch(userInfo(result.data))
-            websocket(result.data.userInfo)
+            // websocket(result.data.userInfo)
         } else {
             dispatch(errMsg(result.msg))
         }

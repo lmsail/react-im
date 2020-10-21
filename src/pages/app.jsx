@@ -17,24 +17,21 @@ class App extends Component {
     state = { screenType: null, token: null, pathName: null }
 
     componentWillMount() {
+        const token = Cookies.get('token')
         const screenType = Cookies.get('screenType')
         const { pathname } = this.props.location
-        this.setState({ screenType, pathName: pathname })
-    }
-
-    componentDidMount() {
-        const token = Cookies.get('token')
         if (token) {
-            this.setState({ token })
             this.props.initMain(token)
         }
+        this.setState({ screenType, token, pathName: pathname }) 
     }
 
     render() {
-        const { token, pathName } = this.state
+        const { pathName, token } = this.state
         const { redirectTo } = this.props.user
         if(pathName === '/register') return <Redirect to='/register' />
         if (!token || redirectTo === '/login') return <Redirect to='/login' />
+        
         return (
             <Layout className={['container', this.state.screenType === 'fullscreen-exit' ? 'mini-pattern' : null].join(' ')}>
                 <LeftNav parent={this} />
