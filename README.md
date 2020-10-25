@@ -1,7 +1,7 @@
 ## 分支介绍
 > 本分支是 `react-im` 的客户端 `v1` 版本，对接了 `react-im server` 端，真正可用的前后端分离的 `IM` 应用！
 
-> 🎉 后端代码：[NestJS Server 传送门](https://github.com/lmsail/react-im-server) | [功能全，经常更新的 dev 分支](https://github.com/lmsail/react-im-server/tree/dev)
+> 🎉 后端代码：[NestJS Server 传送门](https://github.com/lmsail/react-im-server) | [react-im v1 server](https://github.com/lmsail/react-im-server/tree/v1)
 
 > 🔥 我的小站：[M先生 - 每一次的努力都是看得见的进步！](http://www.lmsail.com)
 
