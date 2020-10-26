@@ -18,5 +18,5 @@ export const GET_NEW_FRIENDS      = 'get_new_friends' // 获取好友申请列�
 export const GET_USER_MAILLIST    = 'get_user_mail_list' // 获取好友通讯录列表
 
 export const SET_GLOBAL_SOCKET    = 'set_global_socket'  // 设置全局socket对象
-
 export const SET_REDIRECT_PATH    = 'set_redirect_path'  // 设置重定向地址
+export const SET_RESPONSE_MSG    = 'set_response_msg'    // 设置响应结果

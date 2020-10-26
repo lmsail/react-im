@@ -10,7 +10,7 @@ export const MessServerConnect = () => {
     const socket = io.connect('http://127.0.0.1:8008', {
         query: `token=${getItem('token')}`,
         reconnection: true
-    });
+    }); 
     
     socket.on('connect', () => Event.connect(socket)); // 连接事件
     

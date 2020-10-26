@@ -3,12 +3,12 @@ import {
     INIT_CHAT_INFO, INIT_MESS_LIST, RECEIVE_CHAT_MSG, SEND_CHAT_MSG,
     CHANGE_RIGHT_TYPE, INIT_FRIEND_INFO, AUTH_SUCCESS, ERR_MSG,
     USERINFO, LOGOUT, MODIFY_USER_CONTACTS, GET_NEW_FRIENDS, GET_USER_MAILLIST,
-    SET_GLOBAL_SOCKET, USERSEARCH_LIST, SET_REDIRECT_PATH
+    SET_GLOBAL_SOCKET, USERSEARCH_LIST, SET_REDIRECT_PATH, SET_RESPONSE_MSG
 } from './action-type'
-import { initUser, initChatInfo, friendInfo, initGlobalData } from './init'
+import { initUser, initChatInfo, friendInfo, initGlobalData, responseMsg } from './init'
 
 // 全局对象
-function globalData(state = initGlobalData, action) {
+const globalData = (state = initGlobalData, action) => {
     switch (action.type) {
         case SET_GLOBAL_SOCKET: // 设置全局socket对象
             return { socket: action.data } 
@@ -17,8 +17,26 @@ function globalData(state = initGlobalData, action) {
     }
 }
 
+/**
+ * 设置全局响应提示，目前只有 common/user-info/index.jsx中使用了这种提示方式
+ * 这种方式虽然实现起来比较繁琐，但是可以提高耦合性，后面根据实际情况再做调整
+ * 目前 redux 交互的代码有点杂乱无章，v2版本时考虑重写，毕竟这还是年初边学边做时的产物～～
+ * @description 2020-10-26 15:20 新增
+ * @param {*} state 
+ * @param {*} action 
+ */
+const globalResponse = (state = responseMsg, action) => {
+    switch (action.type) {
+        case SET_RESPONSE_MSG:
+            const { type, page, message } = action.data
+            return { ...state, type, page, message } 
+        default:
+            return state
+    }
+}
+
 // 当前登录的用户信息
-function user(state = initUser, action) {
+const user = (state = initUser, action) => {
     switch (action.type) {
         case AUTH_SUCCESS:
             return {...action.data, ...state, msg: null, redirectTo: '/'}
@@ -41,7 +59,7 @@ function user(state = initUser, action) {
 }
 
 // 好友的用户基本信息
-function friend(state = friendInfo, action) {
+const friend = (state = friendInfo, action) => {
     switch (action.type) {
         case INIT_FRIEND_INFO:
             return {...state, info: action.data}
@@ -55,7 +73,7 @@ function friend(state = friendInfo, action) {
 }
 
 // 当前查看的消息列表
-function chat(state = initChatInfo, action) {
+const chat = (state = initChatInfo, action) => {
     switch (action.type) {
         case INIT_CHAT_INFO:
             return {...state, ...action.data}
@@ -80,5 +98,5 @@ function chat(state = initChatInfo, action) {
 }
 
 export default combineReducers({
-    user, chat, friend, globalData
+    user, chat, friend, globalData, globalResponse
 })

@@ -3,13 +3,12 @@
  */
 import { message as AM } from 'antd'
 import {
-    initChatData, receiveChatMsg, sendChatMsg, showRightType, showFriendInfo, authSuccess,
-    errMsg, userLoginInfo, logOut, modifyUserContacts, getNewFriends, getMailList, setGlobalSocket, searchUserList,
-    setRdirectPath
+    initChatData, receiveChatMsg, sendChatMsg, showRightType, showFriendInfo, authSuccess, errMsg, userLoginInfo,
+    logOut, modifyUserContacts, getNewFriends, getMailList, setGlobalSocket, searchUserList, setRdirectPath, setResponseMsg,
 } from './init'
 import { 
     reqFriendVerify, reqFriendHandle, reqLogin, reqLogout, reqFriendList, reqFriendRemark, reqUpdateUinfo, reqUserInfo, 
-    reqUserSearch, reqFriendAdd, reqRegister 
+    reqUserSearch, reqFriendAdd, reqRegister, reqUpdatePassword, reqUpdateAvatar 
 } from '../api'
 import store from './store'
 import { pySegSort, setItem, removeItem } from '../utils'
@@ -109,7 +108,7 @@ export const setFriendInfo = friendInfo => {
     }
 }
 
-// 获取用户通讯录列表
+// 获取用户通讯录列表 
 export const getFriendList = () => {
     return async dispatch => {
         const response = (await reqFriendList()).data
@@ -191,7 +190,29 @@ export const modifyUserInfo = (fieldName, fieldValue) => {
     }
 }
 
-// 搜索用户
+// 修改密码
+export const modifyPassword = (password, new_password) => {
+    return async dispatch => {
+        const response = (await reqUpdatePassword({ password, new_password })).data
+        const { code, message } = response
+        dispatch(setResponseMsg( code, 'userInfo', message))
+        dispatch(setResponseMsg( code, null, null))
+        if(code === 200) {
+            setTimeout(() => dispatch(logout()), 1000)
+        }
+    }
+}
+
+// 同步用户头像
+export const syncUserAvatar = avatar => {
+    return async dispatch => {
+        let { userInfo } = (await store.getState()).user
+        userInfo['avatar'] = avatar
+        dispatch(userLoginInfo({ userInfo }))
+    }
+}
+
+// 模糊搜索用户
 export const findUserList = keyword => {
     return async dispatch => {
         const response = (await reqUserSearch(keyword)).data

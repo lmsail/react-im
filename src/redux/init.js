@@ -1,12 +1,19 @@
 import {
     CHANGE_RIGHT_TYPE, INIT_CHAT_INFO, INIT_FRIEND_INFO, RECEIVE_CHAT_MSG, SEND_CHAT_MSG,
     AUTH_SUCCESS, ERR_MSG, USERINFO, LOGOUT, MODIFY_USER_CONTACTS, GET_NEW_FRIENDS,
-    GET_USER_MAILLIST, SET_GLOBAL_SOCKET, USERSEARCH_LIST, SET_REDIRECT_PATH
+    GET_USER_MAILLIST, SET_GLOBAL_SOCKET, USERSEARCH_LIST, SET_REDIRECT_PATH, SET_RESPONSE_MSG
 } from "./action-type";
 
 // 全局对象
 export const initGlobalData = {
     socket: null
+}
+
+// 设置提示信息 - 用于请求后对响应结果的提示
+export const responseMsg = {
+    type: 200, // 对应的响应类型 200 | !200
+    page: null, // 对应的页面或接口
+    message: null // 提示信息
 }
 
 // 存储当前登录用户信息
@@ -59,3 +66,6 @@ export const setGlobalSocket = globalData => ({ type: SET_GLOBAL_SOCKET, data: g
 
 // 设置跳转地址
 export const setRdirectPath = path => ({ type: SET_REDIRECT_PATH, data: path })
+
+// 设置全局响应提示
+export const setResponseMsg = (type, page, message) => ({ type: SET_RESPONSE_MSG, data: {type, page, message} })
