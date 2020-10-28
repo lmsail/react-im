@@ -1,6 +1,3 @@
-/**
- * 聊天应用骨架
- */
 import React, {Component} from 'react'
 import { connect } from 'react-redux'
 import { Switch, Route, Redirect } from 'react-router-dom'
