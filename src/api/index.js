@@ -50,3 +50,6 @@ export const reqFriendHandle = ({ friend_id, option }) => Request('/friend/handl
 
 // 更改好友备注
 export const reqFriendRemark = ({ friend_id, remark }) => Request('/friend/remark', { friend_id, remark })
+
+/* ------------ 聊天消息模块 ------------ */
+export const reqHistoryMessage = ({friend_id, page = 0}) => Request('/message/list', {friend_id, page})

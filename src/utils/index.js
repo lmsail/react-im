@@ -62,7 +62,8 @@ export const Request = (url, data = {}, type = 'POST') => {
  * @param {*} date 
  */
 export const friendTimeShow = date => {
-    date = new Date(new Date(new Date(date).toJSON()) + 8 * 3600 * 1000).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '') 
+    if(!date) return '刚刚'
+    // date = new Date(new Date(new Date(date).toJSON()) + 8 * 3600 * 1000).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '') 
     date = date.replace(/-/g, '/');
     date = new Date(date).getTime() / 1000;
 

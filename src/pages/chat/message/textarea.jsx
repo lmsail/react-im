@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Row, Col, Icon, Button, Input, Tooltip } from 'antd'
+import { Row, Col, Icon, Button, Input, Tooltip, message as AM } from 'antd'
 
 import { pushChatMsg, recvChatMsg, modifyContacts } from '../../../redux/actions'
-// import { sendMsg } from '../../../utils/websocket'
 import FaceEmjoy from '../../../components/message/face'
 import { currentTime } from '../../../utils'
 
@@ -43,7 +42,7 @@ class ChatTextarea extends Component {
                     </Col>
                 </Row>
                 <Input.TextArea className="chat-textarea"
-                       onChange={e => this.handleTextArea('message', e) } placeholder="输入信息..."
+                       onChange={e => this.handleTextArea('message', e) } placeholder="说点什么吧..."
                        onPressEnter={e => this.sendChatMess(e) }
                        value={this.state.message}
                 />
@@ -65,47 +64,34 @@ class ChatTextarea extends Component {
         this.setState({ message })
     }
 
+    // 修改最后一条消息，并调整位置
+    sortContacts = (contacts, chatUserInfo, message) => {
+        const index = contacts.findIndex(user => user.friend_id === chatUserInfo.friend_id)
+        if(index >= 0) {
+            contacts[index].last_mess = message;
+            contacts[index].unread_num = 0;
+            contacts[index].created_at = currentTime()
+            if(index > 0) {
+                contacts.unshift(contacts.splice(index, 1)[0])
+            }
+            this.props.modifyContacts(contacts)
+        }
+    }
+
     sendChatMess = e => {
         e.preventDefault();
         const { message } = this.state
-        if(!message) return
+        if(!message) return AM.error('不能发空消息!')
         this.setState({ message: '' })
-
-        // 推送socket消息
+        // 追加消息记录并发送 socket 消息
         const { chat: { chatUserInfo }} = this.props
-        // sendMsg(message, chatUserInfo.id)
-
-        // 这是自己的消息
-        let { user: {userInfo, contacts} } = this.props
+        let { user: { userInfo, contacts } } = this.props
         this.props.pushChatMsg({
-            id: userInfo.id,
-            to_id: chatUserInfo.id,
-            avatar: userInfo.avatar,
-            message: message,
-            position: "right"
+            send_id: userInfo.id,
+            recv_id: chatUserInfo.friend_id,
+            message
         })
-
-        const randomText = ["工具人一号为您服务～", `你好，我是${chatUserInfo.nickname}，很高兴认识你`, "oh god，你终于想起我了啊", "明天一起去爬山露营啊，有空吗？", "hello，我现在在工作，你呢？", "🌹🌹 怎么说呢，那就在一起吧～"]
-        const lastMessage = randomText[parseInt(Math.random()*randomText.length)]
-        this.props.recvChatMsg({
-            id: chatUserInfo.id,
-            to_id: userInfo.id,
-            avatar: chatUserInfo.avatar,
-            message: lastMessage,
-            position: "left"
-        })
-
-        if(contacts) {
-            const index = contacts.findIndex(user => user.id === chatUserInfo.id)
-            if(index >= 0) {
-                contacts[index].last_mess = lastMessage;
-                contacts[index].created_at = currentTime()
-                if(index > 0) {
-                    contacts.unshift(contacts.splice(index, 1)[0])
-                }
-                this.props.modifyContacts(contacts)
-            }
-        }
+        this.sortContacts(contacts, chatUserInfo, message)
     }
 }
 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { List, Avatar } from 'antd'
+import { List, Avatar, Badge } from 'antd'
 
 import InputSearch from './search'
 import { setFriendInfo, changeRightType, getNewFriendList } from '../../../redux/actions'
@@ -13,12 +13,12 @@ class UserList extends Component {
 
     render() {
         const { user_id } = this.state
+        const { friend: { newFriendNum } } = this.props
         return (
             <div className="mail-users">
                 <div className="user-search"><InputSearch parent={this} /></div>
-                <div className={['mail-users-item', user_id === -1 ? 'active' : null].join(' ')}
-                     onClick={this.showNewFriend}>
-                    <img src={newFriend} alt="new-friend"/> 新的朋友
+                <div className={['mail-users-item', user_id === -1 ? 'active' : null].join(' ')} onClick={this.showNewFriend}>
+                    <img src={newFriend} alt="new-friend"/> 新的朋友 <span className="new-friend-num"><Badge count={newFriendNum} /></span>
                 </div>
                 <div className="mail-users-item" style={{display: "none"}}
                      onClick={this.showNewFriend}>

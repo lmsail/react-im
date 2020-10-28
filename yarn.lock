@@ -8613,10 +8613,10 @@ public-encrypt@^4.0.0:
     randombytes "^2.0.1"
     safe-buffer "^5.1.2"
 
-pubsub-js@^1.8.0:
-  version "1.8.0"
-  resolved "https://registry.npm.taobao.org/pubsub-js/download/pubsub-js-1.8.0.tgz?cache=0&sync_timestamp=1577261700397&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fpubsub-js%2Fdownload%2Fpubsub-js-1.8.0.tgz#e2b523a030140a3d6e080735a48850a9622ed20a"
-  integrity sha1-4rUjoDAUCj1uCAc1pIhQqWIu0go=
+pubsub-js@^1.9.0:
+  version "1.9.0"
+  resolved "https://registry.npm.taobao.org/pubsub-js/download/pubsub-js-1.9.0.tgz#fa19de437f41221e95b6bd4dc4c745b25b92c0ab"
+  integrity sha1-+hneQ39BIh6Vtr1NxMdFsluSwKs=
 
 pump@^2.0.0:
   version "2.0.1"

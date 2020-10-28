@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { Avatar, Button, Row, Col, message as AM, Modal, Form, Input, Icon } from 'antd'
 
 import { initChatInfo, modifyContacts, modifyFriendNickRemark } from '../../../redux/actions'
-import { currentTime, friendTimeShow } from '../../../utils'
+import { currentTime } from '../../../utils'
 
 class Profile extends Component {
 
@@ -26,7 +26,6 @@ class Profile extends Component {
                     <div className="clearfix" />
                 </div>
                 {this.getItemList()}
-                <div className="join-time">加入时间：{friendTimeShow(info.created_at)}</div>
                 <div className="btn-operation">
                     <Button type="primary" block={true} onClick={this.openMessage}>发送消息</Button>
                     {/* <Button type="danger" block={true} onClick={this.removeFriend}>移除好友</Button> */}

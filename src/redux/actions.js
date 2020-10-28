@@ -2,16 +2,20 @@
  * 对应 reducers 中的 action 同步/异步请求
  */
 import { message as AM } from 'antd'
+import PubSub from 'pubsub-js'
 import {
     initChatData, receiveChatMsg, sendChatMsg, showRightType, showFriendInfo, authSuccess, errMsg, userLoginInfo,
-    logOut, modifyUserContacts, getNewFriends, getMailList, setGlobalSocket, searchUserList, setRdirectPath, setResponseMsg,
+    logOut, modifyUserContacts, getNewFriends, getMailList, setGlobalSocket, searchUserList, setRdirectPath, setResponseMsg, 
+    initHistoryMsg, updateUnReadNum, appendMesslist
 } from './init'
 import { 
     reqFriendVerify, reqFriendHandle, reqLogin, reqLogout, reqFriendList, reqFriendRemark, reqUpdateUinfo, reqUserInfo, 
-    reqUserSearch, reqFriendAdd, reqRegister, reqUpdatePassword, reqUpdateAvatar 
+    reqUserSearch, reqFriendAdd, reqRegister, reqUpdatePassword, reqHistoryMessage 
 } from '../api'
 import store from './store'
 import { pySegSort, setItem, removeItem } from '../utils'
+
+let socket = null
 
 // 用户登录
 export const login = (username, password) => {
@@ -62,6 +66,21 @@ export const initMain = data => {
     return async dispatch => {
         dispatch(userLoginInfo({userInfo, contacts: sessionList}))
         dispatch(getMailList(pySegSort(mailList)))
+        dispatch(initUnreadNum())
+    }
+}
+
+/**
+ * 修改未读数红点
+ * 1、消息未读数量
+ * 2、好友提醒未读
+ */
+export const initUnreadNum = () => {
+    return dispatch => {
+        let msgUnreadNum = 0, newFriendNum = 0 
+        const { contacts } = (store.getState()).user
+        contacts.map(item => msgUnreadNum += item.unread_num)
+        dispatch(updateUnReadNum({ msgUnreadNum, newFriendNum }))
     }
 }
 
@@ -72,10 +91,26 @@ export const modifyContacts = contacts => {
     }
 }
 
-// 初始化消息列表
-export const initChatInfo = chatUserInfo => {
-    return dispatch => {
-        dispatch(initChatData({chatUserInfo, loading: false, showRightType: 'message'}))
+/**
+ * 初始化socket连接
+ * @param {*} chatUserInfo 
+ */
+export const initChatInfo = (chatUserInfo, needSend = true) => {
+    return async dispatch => {
+        const { friend_id } = chatUserInfo
+        if(needSend) socket.emit('join', { friend_id });
+        await dispatch(initChatData({chatUserInfo, loading: false, showRightType: 'message'}))
+        dispatch(initUnreadNum())
+    }
+}
+
+/**
+ * 初始化消息列表
+ * @param {*} param0 
+ */
+export const initMessList = data => {
+    return async dispatch => {
+        dispatch(initHistoryMsg(data))
     }
 }
 
@@ -88,15 +123,19 @@ export const changeRightType = type => {
 
 // 发送消息
 export const pushChatMsg = chat => {
-    return dispatch => {
-        dispatch(sendChatMsg(chat))
+    return async dispatch => {
+        const { recv_id, message } = chat
+        socket.emit('message', { friend_id: recv_id, message })
+        await dispatch(sendChatMsg(chat))
+        dispatch(initUnreadNum())
     }
 }
 
 // 收到好友消息
 export const recvChatMsg = chat => {
-    return dispatch => {
-        dispatch(receiveChatMsg(chat))
+    return async dispatch => {
+        await dispatch(receiveChatMsg(chat))
+        dispatch(initUnreadNum())
     }
 }
 
@@ -232,8 +271,21 @@ export const addFriend = (friend_id, remark) => {
     }
 }
 
-export const setSocketObject = socket => {
+// 加载更多消息
+export const findMoreMessage = (friend_id, uid, page = 0) => {
     return async dispatch => {
-        dispatch(setGlobalSocket(socket))
+        const response = (await reqHistoryMessage({friend_id, page})).data
+        const { code, data } = response
+        if(code === 200 && data.length > 0) {
+            dispatch(appendMesslist({friend_id, uid, data}))
+        }
+        PubSub.publish('messageLoadMore', data)
+    }
+}
+
+export const setSocketObject = socketObject => {
+    return async dispatch => {
+        socket = socketObject
+        dispatch(setGlobalSocket(socketObject))
     }
 }

@@ -22,5 +22,7 @@ export const MessServerConnect = () => {
     
     socket.on('authError', () => Event.authError()); // 连接错误时返回
     
+    socket.on('ping', message => null); // 心跳包
+    
     socket.on('disconnect', err => Event.disconnect(err)); // 连接断开
 }

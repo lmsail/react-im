@@ -4,9 +4,14 @@
 @selectBgColor: #e4e4e4;
 
 // 去除 antd 默认边框
-.ant-input-search .ant-input:focus {
+.ant-input-search .ant-input:focus,
+.message-footer .ant-input:focus {
     border: none;
     box-shadow: none;
+}
+
+.ant-list-item-meta-description {
+    color: #888;
 }
 
 .error-msg {
@@ -209,6 +214,13 @@
                 margin-right: 5px;
                 border-radius: 2px;
             }
+            .new-friend-num {
+                float: right;
+                margin-right: 15px;
+                sup {
+                    text-indent: 0;
+                }
+            }
         }
         .active {
             background: @basicBgColor;
@@ -278,6 +290,32 @@
             overflow: auto;
             background: @basicBgColor;
             padding: 20px;
+            .message-time {
+                font-size: 10px;
+                color: #666;
+                clear: both;
+                text-align: right;
+            }
+            .message-more {
+                text-align: center;
+                margin-bottom: 25px;
+                font-size: 12px;
+                color: #888;
+                position: relative;
+                span {
+                    color: #1890ff;
+                    cursor: pointer;
+                }
+            }
+            .message-more::after {
+                content: "";
+                position: absolute;
+                bottom: -10px;
+                width: 100px;
+                height: 1px;
+                left: calc(50% - 50px);
+                border-bottom: 1px dashed #eee;
+            }
             .message-left, .message-right {
                 margin-bottom: 15px;
                 .message {
@@ -303,7 +341,7 @@
                 .message {
                     span {
                         float: left;
-                        text-align: center;
+                        text-align: left;
                         background-color: #fff;
                     }
                     span:after {
@@ -319,7 +357,7 @@
                 .message {
                     span {
                         float: right;
-                        text-align: center;
+                        text-align: left;
                         background-color: #a2e756;
                     }
                     span:after {

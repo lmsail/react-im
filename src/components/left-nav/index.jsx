@@ -3,16 +3,11 @@ import { connect } from 'react-redux'
 import { Link, withRouter } from 'react-router-dom'
 import { Avatar, Icon, Menu, Layout, Badge } from 'antd'
 import { getItem, setItem } from '../../utils'
-import menuList from '../../config/menuConfig'
 const { Sider } = Layout
 
 class LeftNav extends Component {
 
     state = { screenType: 'fullscreen-exit' }
-
-    UNSAFE_componentWillMount() {
-        this.menuDoms = this.getMenuDom()
-    }
 
     componentDidMount() {
         this.resetFullScreen()
@@ -20,7 +15,7 @@ class LeftNav extends Component {
 
     render() {
         const path = this.props.location.pathname
-        const { user: { userInfo } } = this.props
+        const { user: { userInfo, unread }, friend: { newFriendNum } } = this.props
         if (!userInfo) return null
         return (
             <Sider className="left-nav" defaultCollapsed="true" collapsedWidth="68">
@@ -29,7 +24,18 @@ class LeftNav extends Component {
                 </h2>
                 <div className="menus">
                     <Menu theme="dark" mode="inline" selectedKeys={[path]}>
-                        { this.menuDoms }
+                        <Menu.Item key="/" title="消息">
+                            <Link to="/"><Badge dot={unread > 0}><Icon type="message" /></Badge></Link>
+                        </Menu.Item>
+                        <Menu.Item key="/friend" title="通讯录">
+                            <Link to="/friend"><Badge dot={newFriendNum > 0}><Icon type="team" /></Badge></Link>
+                        </Menu.Item>
+                        <Menu.Item key="" title="收藏">
+                            <Link to=""><Icon type="star" /></Link>
+                        </Menu.Item>
+                        <Menu.Item key="notice" title="通知">
+                            <Link to="/notice"><Icon type="bell" /></Link>
+                        </Menu.Item>
                     </Menu>
                 </div>
                 {/* 全屏模式 */}
@@ -43,20 +49,6 @@ class LeftNav extends Component {
                 </div>
             </Sider>
         )
-    }
-
-    getMenuDom = () => {
-        return menuList.map(item => (
-            <Menu.Item key={item.path} title={item.title}>
-                <Link to={item.path}>
-                    {
-                        item.unread ?
-                            <Badge dot={true}><Icon type={item.icon} /></Badge> :
-                        <Icon type={item.icon} />
-                    }
-                </Link>
-            </Menu.Item>
-        ))
     }
 
     toSetting = () => {
@@ -80,5 +72,5 @@ class LeftNav extends Component {
 }
 
 export default connect(
-    state => ({ user: state.user }), {}
+    state => ({ user: state.user, friend: state.friend }), {}
 )(withRouter(LeftNav))

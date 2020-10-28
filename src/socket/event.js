@@ -16,29 +16,42 @@
  * -----------------------------------------------
  */
 import store from '../redux/store'
-import { setSocketObject, initMain, logout } from '../redux/actions'
+import { setSocketObject, initMain, initMessList, recvChatMsg, logout } from '../redux/actions'
 import { message as AM } from 'antd'
 
 // 连接成功
 export const connect = socket => {
     // 连接成功，将 socket 对象写入 store 状态中，便于全局使用
     store.dispatch(setSocketObject(socket))
+
+    // 定时发送心跳包
+    setInterval(() => socket.emit('ping', { message: 'pong' }), 30000)
 }
 
 // 初始化事件
 export const init = message => {
-    console.log('收到 init 消息', message)
+    // console.log('收到 init 消息', message)
     store.dispatch(initMain(message.data))
 }
 
-// 进入聊天室事件
+/**
+ * 进入聊天室事件
+ * message: { user_id: 1, friend_id: 2, list: [] }
+ * @param {*} message 
+ */
 export const join = message => {
-    console.log('系统消息 [join]', message)
+    // console.log('系统消息 [join]', message)
+    store.dispatch(initMessList(message))
 }
 
-// 收到消息事件
+/**
+ * 监听消息事件
+ * message：{send_id: 2, message: "撒打算打", isOnline: false}
+ * send_id: 发送方id | message：发送内容 | isOnline: 是否在线（暂时没用）
+ */
 export const message = message => {
-    console.log('系统消息 [message]', message)
+    // console.log('系统消息 [message]', message)
+    store.dispatch(recvChatMsg(message))
 }
 
 // 授权验证失败事件
@@ -49,5 +62,6 @@ export const authError = () => {
 
 // 连接断开事件
 export const disconnect = err => {
-    console.log('socket连接断开事件', err)
+    // console.log('socket连接断开事件', err)
+    AM.error('已与服务器断开连接!!')
 }

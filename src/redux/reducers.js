@@ -3,7 +3,8 @@ import {
     INIT_CHAT_INFO, INIT_MESS_LIST, RECEIVE_CHAT_MSG, SEND_CHAT_MSG,
     CHANGE_RIGHT_TYPE, INIT_FRIEND_INFO, AUTH_SUCCESS, ERR_MSG,
     USERINFO, LOGOUT, MODIFY_USER_CONTACTS, GET_NEW_FRIENDS, GET_USER_MAILLIST,
-    SET_GLOBAL_SOCKET, USERSEARCH_LIST, SET_REDIRECT_PATH, SET_RESPONSE_MSG
+    SET_GLOBAL_SOCKET, USERSEARCH_LIST, SET_REDIRECT_PATH, SET_RESPONSE_MSG, UPDATE_UNREADNUM,
+    APPEND_MESSLIST
 } from './action-type'
 import { initUser, initChatInfo, friendInfo, initGlobalData, responseMsg } from './init'
 
@@ -53,6 +54,25 @@ const user = (state = initUser, action) => {
             return {...state, searchList: action.data}
         case MODIFY_USER_CONTACTS:
             return {...state, contacts: action.data.contacts}
+
+        case UPDATE_UNREADNUM: // 消息未读数
+            const { msgUnreadNum } = action.data
+            return { ...state, unread: msgUnreadNum }
+
+        case RECEIVE_CHAT_MSG: // 收到消息时
+            // 更新 contacts 数据
+            const { sendUserInfo, send_id } = action.data
+            const contact = state.contacts
+            const index = contact.findIndex(user => user.friend_id === send_id)
+            if(index < 0) {
+                contact.unshift(sendUserInfo)
+            } else { // 改变位置
+                contact[index]['last_mess'] = sendUserInfo.last_mess
+                contact[index]['created_at'] = sendUserInfo.created_at
+                contact[index]['unread_num'] = sendUserInfo.unread_num
+                contact.unshift(contact.splice(index, 1)[0])
+            }
+            return { ...state, contacts: contact }
         default:
             return state
     }
@@ -77,19 +97,31 @@ const chat = (state = initChatInfo, action) => {
     switch (action.type) {
         case INIT_CHAT_INFO:
             return {...state, ...action.data}
-        case INIT_MESS_LIST:
-            return {...state, ...action.data}
+
+        case INIT_MESS_LIST: // 初始化消息列表
+            // return {...state, ...action.data}
+            const messages = state.messList
+            const { user_id, friend_id, list } = action.data
+            const messKey = user_id > friend_id ? `${friend_id}${user_id}` : `${user_id}${friend_id}`
+            messages[messKey] = list
+            return { ...state, messList: messages  }
+
         case SEND_CHAT_MSG:    /* 发送消息 */
         case RECEIVE_CHAT_MSG: /* 接收消息 */
-            const chatMsg = action.data
-            let messList = state.messList
-            // key 的关系是：当前用户id + 好友id
-            let key = action.type === SEND_CHAT_MSG ? `${chatMsg.id}${chatMsg.to_id}` : `${chatMsg.to_id}${chatMsg.id}`;
-            messList[key] = messList[key] ? [...messList[key], chatMsg] : [chatMsg];
-            return {
-                chatUserInfo: state.chatUserInfo,
-                messList
-            }
+            const messList = state.messList
+            const { send_id, recv_id } = action.data
+            const key = send_id > recv_id ? `${recv_id}${send_id}` : `${send_id}${recv_id}`;
+            messList[key] = messList[key] ? [...messList[key], action.data] : [action.data];
+            return { ...state, messList }
+
+        case APPEND_MESSLIST: // 追加消息
+            let history = state.messList
+            const { friend_id: friendId, uid, data } = action.data
+            const mkey = uid > friendId ? `${friendId}${uid}` : `${uid}${friendId}`;
+            data.map(item => history[mkey].unshift(item))
+            // history[mkey] = [...data, ...history]
+            return {...state, messList: history}
+
         case CHANGE_RIGHT_TYPE:
             return {...state, ...action.data}
         default:
