@@ -2,8 +2,6 @@
 React + antd3.x + Redux 网页版点对点IM，纯前端项目，数据为模拟数据，可以对接任意后端语言，虽然成熟项目很多，但是也不失为多一种选择（其实是当初为了学习React做的一个小DEMO～～）
 给喜欢折腾的朋友多一种选择，当然作为一名后端仔开发的前端项目，可能对刚学习react的用户比较友好～后续也不会对接后端语言！！
 
-> 🎉 最近基于 NestJS 搞了个 Server 端，下一计划是开始对接啦！[最初版服务端源码](https://github.com/lmsail/react-im-server) | [react-im server v1 服务端](https://github.com/lmsail/react-im-server/tree/v1)
-
 > 🔥 查看对接服务端后的 `完整IM`：[完整项目，请点击前往](https://github.com/lmsail/)
 
 ## 更新 2020-09-13
